@@ -19,7 +19,7 @@ function interval(start,stop){
 }
 for(const lang of ['en','ru']){
   const tr=(en,ru)=>lang==='en'?en:ru;
-  const core=vm.runInNewContext(source+'\n;({initial,launch,tick,movePaddle,blocks,svg,chassis,brick,paddle,ball,capsule,width,textAt,floor})',{tr});
+  const core=vm.runInNewContext(source+'\n;({initial,launch,tick,movePaddle,boards,svg,foundation,chassis,brick,paddle,ball,capsule,width,textAt,floor})',{tr});
   const game=core.initial(), positions=[], paddles=[], frames=[], drops=new Map();
   core.movePaddle(game,470);core.launch(game);
   for(let i=0;i<=end;i++){
@@ -29,7 +29,7 @@ for(const lang of ['en','ru']){
     for(let j=0;j<4;j++)core.tick(game,1/(4*fps));
     if(game.mode==='ready')core.launch(game);
     positions.push(game.x.toFixed(1)+' '+game.y.toFixed(1));paddles.push(game.px.toFixed(1)+' 0');
-    frames.push({remaining:new Map(game.remaining),score:game.points,wide:game.wide>0,hot:game.hot>0});
+    frames.push({stage:game.stage,scuffs:game.scuffs,strikes:game.strikes,remaining:new Map(game.remaining),score:game.points,wide:game.wide>0,hot:game.hot>0});
     for(const d of game.drops){
       if(!drops.has(d))drops.set(d,{start:i});
       drops.get(d).stop=i+1;
@@ -46,8 +46,15 @@ for(const lang of ['en','ru']){
     }
     return output;
   }
-  const bricks=core.blocks.map(b=>segments(f=>f.remaining.get(b.id),hp=>core.brick(b,hp))).join('');
-  const badge=core.textAt(31,core.floor-80,tr('ATTRACT MODE','ДЕМОРАУНД'),12,'#aaaec8')+core.textAt(31,core.floor-55,tr('PLAY THIS ARCHIVE  ↗','СЫГРАТЬ  ↗'),18,'#c9fa62');
+  const start=core.initial();
+  let bricks='';
+  for(const stage of new Set(frames.map(f=>f.stage))){
+    const state=core.initial(stage);
+    bricks+=segments(f=>f.stage===stage,visible=>visible?core.chassis(state):'');
+    bricks+=segments(f=>f.stage===stage?f.scuffs:-1,scuffs=>scuffs>=0?core.foundation({...state,scuffs}):'');
+    bricks+=state.board.blocks.map(b=>segments(f=>f.stage===stage?(f.remaining.get(b.id)||0):0,hp=>core.brick(b,hp))).join('');
+  }
+  const badge=core.textAt(31,core.floor-80,tr('ATTRACT MODE','ДЕМОРАУНД'),12,'#aaaec8')+core.textAt(31,core.floor-55,tr('PLAY THIS ARCHIVE  ↗','СЫГРАТЬ  ↗'),18,'#ff85b1');
   let movie=bricks+badge;
   movie+=segments(f=>f.score,n=>core.textAt(926,core.floor-55,String(n).padStart(3,'0')+tr(' PTS',' ОЧК.'),21,'#ffac91','text-anchor="end"'));
   for(const [drop,span] of drops){
@@ -58,12 +65,12 @@ for(const lang of ['en','ru']){
   }
   for(let lag=4;lag>0;lag--){
     const trail=positions.map((_,i)=>positions[Math.max(0,i-lag)]);
-    movie+='<g>'+animatePath(trail)+'<circle r="'+(5-lag*.75)+'" fill="#a5a2ef" opacity="'+(.55-lag*.09)+'"/></g>';
+    movie+='<g>'+animatePath(trail)+'<circle r="'+(5-lag*.75)+'" fill="#f16686" opacity="'+(.55-lag*.09)+'"/></g>';
   }
   movie+='<g>'+animatePath(positions)+segments(f=>f.hot,v=>core.ball(0,0,v))+'</g><g>'+animatePath(paddles)+segments(f=>f.wide,v=>core.paddle(0,v?80:46))+'</g>';
-  const still=core.blocks.map(b=>core.brick(b)).join('')+badge+core.paddle(470)+core.ball(470,core.floor-9);
+  const still=core.chassis(start)+core.foundation(start)+start.board.blocks.map(b=>core.brick(b)).join('')+badge+core.paddle(470)+core.ball(470,core.floor-9);
   const style='<style>.still{display:none}@media(prefers-reduced-motion:reduce){.run{display:none}.still{display:inline}}@media(prefers-color-scheme:light){'+light+'}</style>';
-  const art=core.svg('<title>'+tr('Diff Breaker: four years of GitHub activity','Разбор по дням: четыре года на GitHub')+'</title>'+style+core.chassis()+'<g class="run">'+movie+'</g><g class="still">'+still+'</g>');
+  const art=core.svg('<title>'+tr('Diff Breaker: a night drive through my GitHub archive since 2016','Разбор по дням: ночная поездка по архиву GitHub с 2016 года')+'</title>'+style+'<g class="run">'+movie+'</g><g class="still">'+still+'</g>');
   fs.writeFileSync(path.join(root,'breaker-demo'+(lang==='ru'?'-ru':'')+'.svg'),art);
-  console.log(lang,core.blocks.length+' bricks',game.hits.length+' demo hits',game.points+' points');
+  console.log(lang,start.board.blocks.length+' bricks',game.hits.length+' demo hits',game.points+' points');
 }

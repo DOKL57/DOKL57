@@ -1,11 +1,11 @@
 const profileText = {
   '← DOKL57 / Overview':'← DOKL57 / Обзор','LOCAL ARCADE':'ЛОКАЛЬНАЯ АРКАДА','Restart':'Начать заново','Round diff':'Что разбито за раунд',
-  'Move with ← →, mouse or touch. Space serves or pauses. Break the wall and catch the falling patches. Older bricks take more hits.':'Двигай платформу стрелками, мышью или пальцем. Пробел — подача или пауза. Разбивай стену и лови падающие патчи. Чем старше блок, тем больше нужно ударов.',
+  'Move with ← →, mouse or touch. Space serves or pauses. Clear both bands to reveal the next buried season. The concrete holds until you reach 2016.':'Двигай платформу стрелками, мышью или пальцем. Пробел — подача или пауза. Разбей оба слоя, чтобы открыть предыдущий сезон. Бетон поддастся, когда доберёшься до 2016-го.',
   'Catch it. The next hit clears a cluster of up to nine bricks.':'Поймай капсулу. Следующим ударом можно убрать до девяти соседних кирпичей.',
   'Undo a bad decision. One extra ball.':'Откат неудачного решения. Ещё один мяч.',
   'Double damage for 12 seconds. Ship it.':'Двойной урон на 12 секунд. Можно в прод.',
   'Even the paddle gets wider. 12 seconds.':'Требования разрослись. Платформа тоже. На 12 секунд.',
-  'Source: DOKL57’s public GitHub contribution calendar. Each color covers 365 days. The newest contributions are at the bottom.':'Источник — публичный календарь вкладов DOKL57. Каждый цвет — 365 дней. Самые свежие вклады внизу.',
+  'Source: DOKL57’s public GitHub contribution calendar. The newest contributions are at the bottom. Empty periods are skipped. The concrete marks the day I joined GitHub.':'Источник — публичный календарь вкладов DOKL57. Свежие вклады внизу. Пустые периоды пропускаются. За бетоном — дата моей регистрации на GitHub.',
   'Diff Breaker playing field. Move the paddle with arrow keys or pointer. Space serves or pauses.':'Игровое поле. Двигай платформу стрелками, мышью или пальцем. Пробел — подача или пауза.',
   'Local preview controls':'Настройки локального просмотра','Play Diff Breaker using your keyboard, mouse or touch':'Играть стрелками, мышью или пальцем',
   'Mechanical sign reading OPEN LATE':'Табло мастерской: открыто','Arcade display. PRESS START.':'Экран автомата: нажми старт.',

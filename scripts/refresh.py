@@ -7,7 +7,7 @@ from pathlib import Path
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
-YEARS = 4
+JOINED = date(2016, 12, 4)
 DAYS_PER_ROW = 365
 QUERY = """
 query Archive($from: DateTime!, $to: DateTime!) {
@@ -37,12 +37,14 @@ def download(start, end):
 
 def make_snapshot(end, fetch=download):
     rows = []
-    for age in range(YEARS):
-        stop = end - timedelta(days=age * DAYS_PER_ROW)
-        start = stop - timedelta(days=DAYS_PER_ROW - 1)
+    stop = end
+    while stop >= JOINED:
+        # Reserve the registration year for the concrete at the end of the archive.
+        earliest = JOINED if stop.year == JOINED.year else date(JOINED.year + 1, 1, 1)
+        start = max(earliest, stop - timedelta(days=DAYS_PER_ROW - 1))
         received = fetch(start, stop)
         counts = []
-        for offset in range(DAYS_PER_ROW):
+        for offset in range((stop - start).days + 1):
             day = (start + timedelta(days=offset)).isoformat()
             count = received[day]  # Refuse partial calendars; retain the previous snapshot.
             if type(count) is not int or count < 0:
@@ -50,7 +52,8 @@ def make_snapshot(end, fetch=download):
             if count:
                 counts.append([day, count])
         rows.append({"start": str(start), "end": str(stop), "days": counts})
-    return {"end": str(end), "rows": rows}
+        stop = start - timedelta(days=1)
+    return {"end": str(end), "joined": str(JOINED), "rows": rows}
 
 
 def save(snapshot):

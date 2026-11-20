@@ -37,3 +37,12 @@ html[data-color-mode=light] #arena [fill="#a8acc4"]{fill:#53636c}
 #perks b{display:block;font:700 14px Consolas,monospace;margin-bottom:4px}
 #perks span{font-size:13px;color:var(--muted,#bec2d2)}
 @media(max-width:580px){#perks{grid-template-columns:1fr;gap:4px}#perks div{padding:7px 10px}}
+
+html[data-color-mode=dark]{--accent:#ff92b5;--on-accent:#301b26;--log:#dbc0d0}
+html[data-color-mode=light]{--page:#f5f1f0;--panel:#eee8e9;--accent:#953957;--on-accent:#fff;--log:#814762}
+html[data-color-mode=light] #arena [fill="#ff85b1"]{fill:#9c365c}
+html[data-color-mode=light] #arena [fill="#ecd5c8"]{fill:#69475b}
+html[data-color-mode=light] #arena [fill="#e780a3"]{fill:#b7597b}
+html[data-color-mode=light] #arena [fill="#879fcc"]{fill:#667d9e}
+html[data-color-mode=light] #arena [fill="#d2a46d"]{fill:#9b744a}
+html[data-color-mode=light] #arena [fill="#b4a6d5"]{fill:#8a77a1}

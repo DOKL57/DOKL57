@@ -1,40 +1,67 @@
 <!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Diff Breaker · DOKL57</title><style>
 *{box-sizing:border-box}html{color-scheme:dark}body{margin:0;background:#12131b;color:#f8f6eb;font:16px/1.5 system-ui,sans-serif}main{max-width:1024px;margin:auto;padding:18px 24px 42px}header,nav,.lower{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}header{padding:2px 0 16px}a{color:#c9fa62}header a{color:#ccd0d9;text-decoration:none}header span,.lower code{color:#abb1c0;font:13px Consolas,monospace}#arena{position:relative;touch-action:none;background:#191b2a;outline-offset:4px;border:1px solid #373a4e;border-radius:8px;overflow:hidden}#arena svg{width:100%;height:auto;display:block}nav{margin:16px 0}button{border:1px solid #454958;border-radius:5px;background:#252734;color:#fff;font:600 14px system-ui;padding:9px 16px;cursor:pointer}button:disabled{opacity:.5;cursor:default}button:first-child{background:#c9fa62;color:#202515;border-color:#c9fa62}button:focus-visible,a:focus-visible{outline:2px solid #9db5ff;outline-offset:2px}#controls{display:flex;gap:8px}#status{font:14px Consolas,monospace;color:#c9fa62}p{color:#bec2d2}h2{font-size:18px;margin:0}.lower{border-top:1px solid #363849;padding-top:15px}#log{padding:0;list-style:none;font:14px/1.8 Consolas,monospace;color:#9de5c0}#log:empty:before{content:"Waiting for the first hit.";color:#8990a7}small{color:#a9adbd}@media(max-width:600px){main{padding:10px}nav{gap:8px}button{padding:9px}#arena{overflow:hidden}#arena svg{min-height:195px}}
-</style><link rel="stylesheet" href="arcade-themes.css"><main><header><a href="https://github.com/DOKL57">← DOKL57 / Overview</a><div class="options"><button class="language">RU</button><button class="theme">Light theme</button></div></header><div id="arena" tabindex="0" aria-label="Diff Breaker playing field. Move the paddle with arrow keys or pointer. Space serves or pauses."></div><nav><div id="controls"><button id="action">Serve ball</button><button id="restart">Restart</button></div><strong id="status" aria-live="polite"></strong></nav><p>Move with ← →, mouse or touch. Space serves or pauses. Break the wall and catch the falling patches. Older bricks take more hits.</p><div id="perks">
+</style><link rel="stylesheet" href="arcade-themes.css"><main><header><a href="https://github.com/DOKL57">← DOKL57 / Overview</a><div class="options"><button class="language">RU</button><button class="theme">Light theme</button></div></header><div id="arena" tabindex="0" aria-label="Diff Breaker playing field. Move the paddle with arrow keys or pointer. Space serves or pauses."></div><nav><div id="controls"><button id="action">Serve ball</button><button id="restart">Restart</button></div><strong id="status" aria-live="polite"></strong></nav><p>Move with ← →, mouse or touch. Space serves or pauses. Clear both bands to reveal the next buried season. The concrete holds until you reach 2016.</p><div id="perks">
 <div><b>3×3 · SQUASH MERGE</b><span>Catch it. The next hit clears a cluster of up to nine bricks.</span></div>
 <div><b>+1 · REVERT</b><span>Undo a bad decision. One extra ball.</span></div>
 <div><b>×2 · HOTFIX</b><span>Double damage for 12 seconds. Ship it.</span></div>
 <div><b>↔ · SCOPE CREEP</b><span>Even the paddle gets wider. 12 seconds.</span></div>
-</div><div class="lower"><h2>Round diff</h2><code>activity.patch</code></div><ul id="log"></ul><small>Source: DOKL57’s public GitHub contribution calendar. Each color covers 365 days. The newest contributions are at the bottom.</small></main><script src="view-options.js"></script><script src="activity.js"></script><script src="breaker.js"></script><script>
+</div><div class="lower"><h2>Round diff</h2><code>activity.patch</code></div><ul id="log"></ul><small>Source: DOKL57’s public GitHub contribution calendar. The newest contributions are at the bottom. Empty periods are skipped. The concrete marks the day I joined GitHub.</small></main><script src="view-options.js"></script><script src="activity.js"></script><script src="breaker.js"></script><script>
 const arena=document.querySelector('#arena'),button=document.querySelector('#action'),statusLine=document.querySelector('#status'),log=document.querySelector('#log');
-let s=initial(),last=performance.now(),prev='',keys=new Set();
-let motion;
+const saveKey='diff-breaker-origin-2016-v1';
+function savedStrikes(){
+ try{
+   const raw=localStorage.getItem(saveKey);
+   const value=Number(raw);
+   if(raw!==null && Number.isInteger(value) && value>=0 && value<=concreteHP)return value;
+ }catch{}
+ return null;
+}
+const saved=savedStrikes();
+let s=saved===null?initial():initial(chapters.length,saved),last=performance.now(),prev='',keys=new Set();
+let motion,bedrock,displayedStage=-1,lastSaved=saved;
 function buildBoard(){
- arena.innerHTML=svg(chassis()+'<g id="bricks">'+blocks.map(b=>'<g data-brick="'+b.id+'"><title>'+rangeLabel(b)+' · '+b.count+' · '+b.hp+' HP</title><g>'+brick(b)+'</g></g>').join('')+'</g><g id="motion"></g>');
+ arena.innerHTML=svg(chassis(s)+'<g id="bedrock"></g><g id="bricks">'+s.board.blocks.map(b=>'<g data-brick="'+b.id+'"><title>'+rangeLabel(b)+' · '+b.count+' · '+b.hp+' HP</title><g>'+brick(b)+'</g></g>').join('')+'</g><g id="motion"></g>');
  motion=document.querySelector('#motion');
+ bedrock=document.querySelector('#bedrock');displayedStage=s.stage;
 }
 function sync(){
+ if(s.stage===chapters.length && lastSaved!==s.strikes){
+   try{localStorage.setItem(saveKey,String(s.strikes));lastSaved=s.strikes}catch{}
+ }
  const key=[s.mode,s.lives,s.revision,Math.ceil(s.wide),Math.ceil(s.hot)].join(':');if(key===prev)return;prev=key;
  statusLine.textContent=tr(fmt(s.points)+' PTS  /  '+s.lives+' BALL'+(s.lives===1?'':'S'),fmt(s.points)+' '+pluralRu(s.points,'очко','очка','очков')+'  /  '+s.lives+' '+pluralRu(s.lives,'мяч','мяча','мячей'));
  if(s.squash)statusLine.textContent+='  ·  SQUASH MERGE';
  if(s.wide>0)statusLine.textContent+='  ·  SCOPE CREEP '+Math.ceil(s.wide)+'s';
  if(s.hot>0)statusLine.textContent+='  ·  HOTFIX '+Math.ceil(s.hot)+'s';
- button.textContent=tr({ready:'Serve ball',play:'Pause',paused:'Resume',over:'Play again',won:'Play again'},{ready:'Подать мяч',play:'Пауза',paused:'Продолжить',over:'Сыграть ещё',won:'Сыграть ещё'})[s.mode];
- log.innerHTML=s.hits.map(b=>'<li>+ '+rangeLabel(b)+'   ·   '+b.count+' '+tr(b.count===1?'contribution':'contributions',pluralRu(b.count,'вклад','вклада','вкладов'))+'</li>').join('');
+ button.textContent=tr({reveal:'Opening archive…',ready:'Serve ball',play:'Pause',paused:'Resume',over:'Play again',won:'Play again'},{reveal:'Открываем архив…',ready:'Подать мяч',play:'Пауза',paused:'Продолжить',over:'Сыграть ещё',won:'Сыграть ещё'})[s.mode];
+ button.disabled=s.mode==='reveal';
+ log.innerHTML=s.hits.slice(0,40).map(b=>'<li>+ '+rangeLabel(b)+'   ·   '+b.count+' '+tr(b.count===1?'contribution':'contributions',pluralRu(b.count,'вклад','вклада','вкладов'))+'</li>').join('');
  for(const [index,g] of document.querySelectorAll('[data-brick]').entries()){
-   const block=blocks[index],hp=s.remaining.get(block.id);
+   const block=s.board.blocks[index],hp=s.remaining.get(block.id);
    if(g.dataset.hp===String(hp))continue;
    g.dataset.hp=hp;g.style.display=hp?'':'none';g.querySelector('g').innerHTML=brick(block,hp);
  }
 }
 function draw(){
- const words=tr({ready:'READY TO SERVE',over:'GAME OVER',won:'CALENDAR CLEARED',paused:'PAUSED',play:''},{ready:'ПОДАВАЙ!',over:'ИГРА ОКОНЧЕНА',won:'ВСЕ ДНИ РАЗБИТЫ',paused:'ПАУЗА',play:''});
+ if(displayedStage!==s.stage){
+   if(s.stage===chapters.length && lastSaved!==null)s.strikes=Math.max(s.strikes,lastSaved);
+   if(s.strikes===concreteHP && s.stage===chapters.length)s.mode='won';
+   buildBoard();
+ }
+ const slabKey=[s.stage,s.scuffs,s.strikes,s.dust].join('/');
+ if(bedrock.dataset.frame!==slabKey){bedrock.innerHTML=foundation(s);bedrock.dataset.frame=slabKey}
+ const words=tr({ready:s.stage===chapters.length?'2016  /  BREAK THE CONCRETE':'READY TO SERVE',over:'GAME OVER',won:'DEC 4, 2016',paused:'PAUSED',play:''},{ready:s.stage===chapters.length?'2016  /  ПРОБЕЙ БЕТОН':'ПОДАВАЙ!',over:'ИГРА ОКОНЧЕНА',won:'4 ДЕКАБРЯ 2016',paused:'ПАУЗА',play:''});
  let label=words[s.mode];if(!label&&s.flash>0)label=s.feedback;
- motion.innerHTML=s.trail.map(([x,y],i)=>'<circle cx="'+x+'" cy="'+y+'" r="'+(1+i*.4)+'" fill="#9991dc" opacity="'+(.1+i*.07)+'"/>').join('')+s.drops.map(d=>capsule(d.kind,d.x,d.y)).join('')+ball(s.x,s.y,s.hot>0)+paddle(s.px,width(s))+(label?textAt(480,floor-65,label,17,'#e1dfec','text-anchor="middle" letter-spacing="2"'):'');
+ motion.innerHTML=s.trail.map(([x,y],i)=>'<circle cx="'+x+'" cy="'+y+'" r="'+(1+i*.4)+'" fill="#f16686" opacity="'+(.1+i*.07)+'"/>').join('')+s.drops.map(d=>capsule(d.kind,d.x,d.y)).join('')+ball(s.x,s.y,s.hot>0)+paddle(s.px,width(s))+(label?textAt(480,floor-65,label,17,'#e1dfec','text-anchor="middle" letter-spacing="2"'):'');
+ if(s.mode==='reveal'){
+   const date=s.board.bands.map(b=>b.label).join(' / ') || '2016';
+   const opacity=matchMedia('(prefers-reduced-motion: reduce)').matches ? .85 : Math.min(.92,s.reveal*2);
+   motion.innerHTML+=rect(18,112,924,floor-88,'#16121d','opacity="'+opacity+'"')+textAt(480,320,date,48,'#ff85b1','text-anchor="middle" font-family="Georgia,serif" font-style="italic"');
+ }
  sync();
 }
-function reset(){s=initial();prev='';draw()}
-function toggle(){if(s.mode==='ready')launch(s);else if(s.mode==='play')s.mode='paused';else if(s.mode==='paused')s.mode='play';else{reset();launch(s)}draw()}
+function reset(){s=initial();prev='';displayedStage=-1;draw()}
+function toggle(){if(s.mode==='reveal')return;if(s.mode==='ready')launch(s);else if(s.mode==='play')s.mode='paused';else if(s.mode==='paused')s.mode='play';else if(s.mode==='over' && s.stage===chapters.length){s=initial(s.stage,s.strikes);prev='';launch(s)}else{reset();launch(s)}draw()}
 button.onclick=()=>{toggle();arena.focus({preventScroll:true})};document.querySelector('#restart').onclick=reset;
 function point(e){const matrix=arena.querySelector('svg').getScreenCTM();const p=new DOMPoint(e.clientX,e.clientY).matrixTransform(matrix.inverse());movePaddle(s,p.x)}
 arena.onpointermove=e=>{if(e.pointerType==='mouse'||e.buttons)point(e)};
@@ -42,7 +69,7 @@ arena.onpointerdown=e=>{point(e);arena.focus();arena.setPointerCapture(e.pointer
 window.onkeydown=e=>{if(['ArrowLeft','ArrowRight',' '].includes(e.key)){if(e.target.tagName==='BUTTON'&&e.key===' ')return;e.preventDefault();keys.add(e.key);if(e.key===' '&&!e.repeat)toggle()}};
 window.onkeyup=e=>keys.delete(e.key);window.onblur=()=>{keys.clear();if(s.mode==='play'){s.mode='paused';draw()}};
 function frame(t){const dt=Math.min(.04,(t-last)/1000);last=t;
- if(s.mode==='play'||s.mode==='ready'){movePaddle(s,s.px+((keys.has('ArrowRight')?1:0)-(keys.has('ArrowLeft')?1:0))*510*dt);for(let i=0;i<3;i++)tick(s,dt/3);if(s.mode==='play'){s.trail.push([s.x,s.y]);if(s.trail.length>7)s.trail.shift()}draw()}
+ if(['play','ready','reveal'].includes(s.mode)){movePaddle(s,s.px+((keys.has('ArrowRight')?1:0)-(keys.has('ArrowLeft')?1:0))*510*dt);for(let i=0;i<3;i++)tick(s,dt/3);if(s.mode==='play'){s.trail.push([s.x,s.y]);if(s.trail.length>7)s.trail.shift()}draw()}
  requestAnimationFrame(frame)}
 bindView(()=>{
  document.querySelector('header a').href='https://github.com/DOKL57';
