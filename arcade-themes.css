@@ -46,3 +46,6 @@ html[data-color-mode=light] #arena [fill="#e780a3"]{fill:#b7597b}
 html[data-color-mode=light] #arena [fill="#879fcc"]{fill:#667d9e}
 html[data-color-mode=light] #arena [fill="#d2a46d"]{fill:#9b744a}
 html[data-color-mode=light] #arena [fill="#b4a6d5"]{fill:#8a77a1}
+html[data-color-mode=light] #arena [fill="#de819e"]{fill:#ac5370}
+html[data-color-mode=light] #arena [fill="#7bb9b5"]{fill:#528785}
+#wall-notes{border-left:3px solid var(--accent,#dc8fab);padding:.25em 1em}

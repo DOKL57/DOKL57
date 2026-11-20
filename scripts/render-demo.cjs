@@ -70,7 +70,7 @@ for(const lang of ['en','ru']){
   movie+='<g>'+animatePath(positions)+segments(f=>f.hot,v=>core.ball(0,0,v))+'</g><g>'+animatePath(paddles)+segments(f=>f.wide,v=>core.paddle(0,v?80:46))+'</g>';
   const still=core.chassis(start)+core.foundation(start)+start.board.blocks.map(b=>core.brick(b)).join('')+badge+core.paddle(470)+core.ball(470,core.floor-9);
   const style='<style>.still{display:none}@media(prefers-reduced-motion:reduce){.run{display:none}.still{display:inline}}@media(prefers-color-scheme:light){'+light+'}</style>';
-  const art=core.svg('<title>'+tr('Diff Breaker: a night drive through my GitHub archive since 2016','Разбор по дням: ночная поездка по архиву GitHub с 2016 года')+'</title>'+style+'<g class="run">'+movie+'</g><g class="still">'+still+'</g>');
+  const art=core.svg('<title>'+tr('Diff Breaker: a night drive through my GitHub archive since 2016','Разбор по дням: ночная поездка по архиву GitHub с 2016 года')+'</title>'+style+'<g class="run">'+movie+'</g><g class="still">'+still.replace(/(id="|url\(#)(sky|wet-road)/g,'$1still-$2')+'</g>');
   fs.writeFileSync(path.join(root,'breaker-demo'+(lang==='ru'?'-ru':'')+'.svg'),art);
   console.log(lang,start.board.blocks.length+' bricks',game.hits.length+' demo hits',game.points+' points');
 }
