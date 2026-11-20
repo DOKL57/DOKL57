@@ -1,0 +1,39 @@
+html[data-color-mode=light]{
+  --page:#f1f3f1;--ink:#26353b;--muted:#50616a;--panel:#e9edee;--line:#b7c2c3;
+  --button:#e2e8e7;--accent:#456427;--on-accent:#fff;--log:#315e4a;
+}
+body{background:var(--page,#12131b);color:var(--ink,#f8f6eb)}
+header a,p,small,header span,.lower code{color:var(--muted,#bec2d2)}
+a,#status{color:var(--accent,#c9fa62)}
+#arena{background:var(--panel,#191b2a);border-color:var(--line,#373a4e)}
+button,header button:first-child{background:var(--button,#252734);border-color:var(--line,#454958);color:var(--ink,#fff)}
+#action{background:var(--accent,#c9fa62);border-color:var(--accent,#c9fa62);color:var(--on-accent,#202515)}
+.lower{border-color:var(--line,#363849)}#log{color:var(--log,#9de5c0)}
+#log:empty:before{color:var(--muted,#a9adbd)}
+html[lang=ru] #log:empty:before{content:"Пока ни один блок не разбит."}
+header .options{display:flex;align-items:center;gap:6px}
+header .options button{padding:5px 8px}
+html[data-color-mode=light] #arena [fill="#191b2a"]{fill:#e9edee}
+html[data-color-mode=light] #arena [fill="#10121e"]{fill:#f8f9f6}
+html[data-color-mode=light] #arena [fill="#262a3f"]{fill:#dce2e2}
+html[data-color-mode=light] #arena [fill="#c9fa62"]{fill:#476928}
+html[data-color-mode=light] #arena [fill="#f8f6eb"]{fill:#242f36}
+html[data-color-mode=light] #arena [fill="#babdd1"]{fill:#4b5c64}
+html[data-color-mode=light] #arena [fill="#6e93fc"]{fill:#798d99}
+html[data-color-mode=light] #arena [fill="#6ee3d3"]{fill:#508180}
+html[data-color-mode=light] #arena [fill="#ffac91"]{fill:#95543f}
+html[data-color-mode=light] #arena [fill="#8a97cb"]{fill:#7e909a}
+html[data-color-mode=light] #arena [fill="#44465e"]{fill:#b7c2c3}
+html[data-color-mode=light] #arena [fill="#abb1cb"]{fill:#4e6069}
+html[data-color-mode=light] #arena [fill="#748940"]{fill:#879a79}
+html[data-color-mode=light] #arena [fill="#fff5df"]{fill:#25353d}
+html[data-color-mode=light] #arena [fill="#9991dc"]{fill:#576f83}
+html[data-color-mode=light] #arena [fill="#a5a2ef"]{fill:#5f768a}
+html[data-color-mode=light] #arena [fill="#e1dfec"]{fill:#2e424c}
+html[data-color-mode=light] #arena [fill="#aaaec8"]{fill:#53636c}
+html[data-color-mode=light] #arena [fill="#a8acc4"]{fill:#53636c}
+#perks{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0 24px}
+#perks div{border:1px solid var(--line,#373a4e);border-radius:6px;padding:12px}
+#perks b{display:block;font:700 14px Consolas,monospace;margin-bottom:4px}
+#perks span{font-size:13px;color:var(--muted,#bec2d2)}
+@media(max-width:580px){#perks{grid-template-columns:1fr;gap:4px}#perks div{padding:7px 10px}}

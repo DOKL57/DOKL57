@@ -1,0 +1,61 @@
+name: Refresh contribution arcade
+on:
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+
+permissions: {}
+concurrency:
+  group: contribution-arcade
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    if: github.ref_name == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+      - name: Read four years of contribution data
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/refresh.py
+      - name: Render the English and Russian README demos
+        run: node scripts/render-demo.cjs
+      - name: Resolve the published game URL
+        id: pages
+        uses: actions/configure-pages@v5
+      - name: Stage the playable game
+        run: |
+          mkdir site
+          cp breaker.html breaker.js activity.js view-options.js arcade-themes.css site/
+          cp site/breaker.html site/index.html
+      - name: Save refreshed calendar and profile movies
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add activity.js breaker-demo.svg breaker-demo-ru.svg
+          if ! git diff --cached --quiet; then
+            git commit -m 'Refresh contribution arcade'
+            git push
+          fi
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: refresh
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.publish.outputs.page_url }}
+    steps:
+      - id: publish
+        uses: actions/deploy-pages@v4
