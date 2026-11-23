@@ -109,5 +109,5 @@ ${tiles}
 <g transform="translate(${origin.x} ${origin.y})" color="var(--elephant)">${elephant}${trunk}${trunkMotion}</path>${tusk}</g>
 </g>
 </svg>\n`;
-fs.writeFileSync(path.join(root, 'profile-contributions.svg'), svg);
+fs.writeFileSync(path.join(root, 'contribution-elephant.svg'), svg);
 console.log(`Rendered ${grid.length} dates with ${targets.length} active days and ${total} contributions.`);
