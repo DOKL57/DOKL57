@@ -24,7 +24,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: python3 scripts/refresh.py
-      - name: Render the English and Russian README demos
+      - name: Render the profile contribution calendar
+        run: node scripts/render-contribution-calendar.cjs
+      - name: Render the Diff Breaker demos
         run: node scripts/render-demo.cjs
       - name: Resolve the published game URL
         id: pages
@@ -38,7 +40,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add activity.js breaker-demo.svg breaker-demo-ru.svg
+          git add activity.js profile-contributions.svg breaker-demo.svg breaker-demo-ru.svg
           if ! git diff --cached --quiet; then
             git commit -m 'Refresh contribution arcade'
             git push
