@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="935" height="147" viewBox="0 0 935 147" role="img" aria-labelledby="title desc">
 <title id="title">DOKL57’s GitHub contribution calendar</title>
-<desc id="desc">An elephant tosses tiles into their dates. 294 GitHub contributions on 54 days from Nov 24, 2025 through Nov 23, 2026.</desc>
+<desc id="desc">An elephant tosses tiles into their dates. 295 GitHub contributions on 54 days from Nov 24, 2025 through Nov 23, 2026.</desc>
 <style>
 :root{--empty:#e7eae6;--low:#c3d7ca;--mid:#90b6a2;--high:#629981;--max:#316c57;--elephant:#2f596b;--ink:#515c58;--surface:#fafbf8}
 @media(prefers-color-scheme:dark){:root{--empty:#263137;--low:#3a514c;--mid:#507969;--high:#73a78f;--max:#9acdb4;--elephant:#9dc6d5;--ink:#a3b0ac;--surface:#191f24}}
@@ -428,7 +428,7 @@ text{font-family:Consolas,monospace;font-size:10px;fill:var(--ink)}
 <rect x="883" y="105" width="12" height="12" rx="2" class="level-4" data-date="2026-11-20"/>
 <rect x="883" y="121" width="12" height="12" rx="2" class="level-1" data-date="2026-11-21"/>
 <rect x="899" y="25" width="12" height="12" rx="2" class="level-3" data-date="2026-11-22"/>
-<rect x="899" y="41" width="12" height="12" rx="2" class="level-2" data-date="2026-11-23"/>
+<rect x="899" y="41" width="12" height="12" rx="2" class="level-3" data-date="2026-11-23"/>
 <g transform="translate(32 86)" color="var(--elephant)"><path d="M-12-2Q-16 0-17 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
     <path d="M-13 2c-1-6 4-10 10-10 3 0 5 1 7 2 3 1 4 4 4 7v8H4L3 4H-6l-1 5h-4l.2-6Z" fill="currentColor"/>
     <path d="M0-6c1-3 5-4 8-2 3 2 4 5 3 8L8 4 4 1Z" fill="currentColor"/>
@@ -703,9 +703,9 @@ text{font-family:Consolas,monospace;font-size:10px;fill:var(--ink)}
   <g data-land-date="2026-11-22"><rect x="899" y="25" width="12" height="12" rx="2" class="level-3" /><animate attributeName="opacity" calcMode="discrete" values="0;1;1" keyTimes="0;0.767899;1" dur="14.600000000000001s" repeatCount="indefinite"/></g>
 <g data-flight-date="2026-11-23" opacity="0"><animate attributeName="opacity" calcMode="discrete" values="0;1;0;0" keyTimes="0;0.722603;0.780822;1" dur="14.600000000000001s" repeatCount="indefinite"/>
     <animateMotion path="M49 73 Q477 -8 905 47" keyPoints="0;0;1;1" keyTimes="0;0.722603;0.780822;1" calcMode="linear" dur="14.600000000000001s" repeatCount="indefinite"/>
-    <g><rect x="-4" y="-4" width="8" height="8" rx="2" class="level-2" /><animateTransform attributeName="transform" type="rotate" values="0;0;180;180" keyTimes="0;0.722603;0.780822;1" dur="14.600000000000001s" repeatCount="indefinite"/></g>
+    <g><rect x="-4" y="-4" width="8" height="8" rx="2" class="level-3" /><animateTransform attributeName="transform" type="rotate" values="0;0;180;180" keyTimes="0;0.722603;0.780822;1" dur="14.600000000000001s" repeatCount="indefinite"/></g>
   </g>
-  <g data-land-date="2026-11-23"><rect x="899" y="41" width="12" height="12" rx="2" class="level-2" /><animate attributeName="opacity" calcMode="discrete" values="0;1;1" keyTimes="0;0.780822;1" dur="14.600000000000001s" repeatCount="indefinite"/></g>
+  <g data-land-date="2026-11-23"><rect x="899" y="41" width="12" height="12" rx="2" class="level-3" /><animate attributeName="opacity" calcMode="discrete" values="0;1;1" keyTimes="0;0.780822;1" dur="14.600000000000001s" repeatCount="indefinite"/></g>
 <g transform="translate(32 86)" color="var(--elephant)"><path d="M-12-2Q-16 0-17 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
     <path d="M-13 2c-1-6 4-10 10-10 3 0 5 1 7 2 3 1 4 4 4 7v8H4L3 4H-6l-1 5h-4l.2-6Z" fill="currentColor"/>
     <path d="M0-6c1-3 5-4 8-2 3 2 4 5 3 8L8 4 4 1Z" fill="currentColor"/>
