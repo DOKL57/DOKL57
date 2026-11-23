@@ -40,7 +40,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add activity.js contribution-elephant.svg breaker-demo.svg breaker-demo-ru.svg
+          git add activity.js contribution-mammoth.svg breaker-demo.svg breaker-demo-ru.svg
           if ! git diff --cached --quiet; then
             git commit -m 'Refresh contribution arcade'
             git push

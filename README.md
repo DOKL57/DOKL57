@@ -1,1 +1,1 @@
-![My GitHub contribution calendar, assembled by an elephant](contribution-elephant.svg)
+![My GitHub contribution calendar, assembled by a woolly mammoth](contribution-mammoth.svg)

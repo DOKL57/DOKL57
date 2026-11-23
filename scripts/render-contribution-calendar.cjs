@@ -78,23 +78,25 @@ for (const [index] of targets.entries()) {
 }
 trunkTimes.push(loop);
 trunkShapes.push(rest);
-const elephant = `<path d="M-15-3Q-18-1-18 5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-    <path d="M-12 2h6l-1 8h-3Zm13 0h6l-1 8H3Z" fill="var(--elephant-ear)"/>
-    <path d="M-16-1c0-5 5-8 12-8h3c4 0 7 2 9 6l1 6-2 2-1 5H2L1 5c-4 1-8 1-12 0l-1 5h-4l1-6Z" fill="currentColor"/>
-    <path d="M4-7c3-2 7 0 8 3l-1 5-3 2-5-3Z" fill="currentColor"/>
-    <path d="M1-9c-3-1-6 .7-6 3.6C-5-3-3 1 0 3c3-1 5-5 5-8 0-2-1.8-3.6-4-4Z" fill="var(--elephant-ear)"/>
-    <circle cx="8.5" cy="-5.1" r=".9" fill="var(--surface)"/>`;
-const tusk = `<path d="M9 .2Q12 2 16-.4Q14 4.4 9.5 3Z" fill="var(--elephant-tusk)" stroke="currentColor" stroke-width=".4"/>`;
+const mammothBody = `<path d="M-16-3q-3 3-3 7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M-12 1h5l-1 9h-4Zm13-1h5l1 10H3Z" class="fur"/>
+    <path d="M-17 1v-5c1-5 4-9 10-11 5-2 10-2 14 2 3 1 5 4 5 8v6l-4 3-1 6H2L1 4l-3 1-1-2-3 2-1-2-4 1-1 6h-4l1-7Z" fill="currentColor"/>
+    <path d="M-13-7c3-5 10-8 15-6l2 2c-5-1-10 1-14 6Z" class="fur"/>
+    <path d="M2-8c-3 0-3 4-1 6 2 0 4-2 4-4 0-1-1-2-3-2Z" class="fur"/>
+    <circle cx="8.5" cy="-6.1" r=".9" fill="var(--surface)"/>
+    <path d="M8.8-.2C12 2 17 2 19-2" class="tusk" stroke-width="1.25" opacity=".7"/>`;
+const frontTusk = `<path d="M8 1C12 6 20 7 23 0" class="tusk" stroke-width="2"/>`;
 const trunk = `<path d="${rest}" fill="none" stroke="currentColor" stroke-width="3.3" stroke-linecap="round">`;
 const trunkMotion = `<animate attributeName="d" values="${trunkShapes.join(';')}" keyTimes="${times(trunkTimes)}" dur="${loop}s" repeatCount="indefinite"/>`;
 const total = targets.reduce((sum, day) => sum + day.count, 0);
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="935" height="147" viewBox="0 0 935 147" role="img" aria-labelledby="title desc">
 <title id="title">DOKL57’s GitHub contribution calendar</title>
-<desc id="desc">An elephant tosses tiles into their dates. ${total} GitHub contributions on ${targets.length} days from ${dateLabel.format(first)} through ${dateLabel.format(last)}.</desc>
+<desc id="desc">A woolly mammoth tosses tiles into their dates. ${total} GitHub contributions on ${targets.length} days from ${dateLabel.format(first)} through ${dateLabel.format(last)}.</desc>
 <style>
-:root{--empty:#e7eae6;--low:#c3d7ca;--mid:#90b6a2;--high:#629981;--max:#316c57;--elephant:#685e55;--elephant-ear:#ab9688;--elephant-tusk:#f7e5cb;--ink:#515c58;--surface:#fafbf8}
-@media(prefers-color-scheme:dark){:root{--empty:#263137;--low:#3a514c;--mid:#507969;--high:#73a78f;--max:#9acdb4;--elephant:#c1b1a3;--elephant-ear:#8c7464;--elephant-tusk:#ffedd2;--ink:#a3b0ac;--surface:#191f24}}
+:root{--empty:#e7eae6;--low:#c3d7ca;--mid:#90b6a2;--high:#629981;--max:#316c57;--mammoth:#795543;--fur:#ac8267;--tusk:#f7e5cb;--ink:#515c58;--surface:#fafbf8}
+@media(prefers-color-scheme:dark){:root{--empty:#263137;--low:#3a514c;--mid:#507969;--high:#73a78f;--max:#9acdb4;--mammoth:#b88d71;--fur:#795543;--tusk:#ffedd2;--ink:#a3b0ac;--surface:#191f24}}
 @media(prefers-reduced-motion:reduce){.animated{display:none}.still{display:inline}}
+.fur{fill:var(--fur)}.tusk{fill:none;stroke:var(--tusk);stroke-linecap:round}
 text{font-family:Consolas,monospace;font-size:10px;fill:var(--ink)}
 .level-0{fill:var(--empty)}.level-1{fill:var(--low)}.level-2{fill:var(--mid)}.level-3{fill:var(--high)}.level-4{fill:var(--max)}
 </style>
@@ -102,12 +104,12 @@ ${months}${weekdays}
 ${empty}
 <g class="still" display="none">
 ${daysStatic}
-<g transform="translate(${origin.x} ${origin.y})" color="var(--elephant)">${elephant}${trunk}</path>${tusk}</g>
+<g transform="translate(${origin.x} ${origin.y})" color="var(--mammoth)">${mammothBody}${trunk}</path>${frontTusk}</g>
 </g>
 <g class="animated">
 ${tiles}
-<g transform="translate(${origin.x} ${origin.y})" color="var(--elephant)">${elephant}${trunk}${trunkMotion}</path>${tusk}</g>
+<g transform="translate(${origin.x} ${origin.y})" color="var(--mammoth)">${mammothBody}${trunk}${trunkMotion}</path>${frontTusk}</g>
 </g>
 </svg>\n`;
-fs.writeFileSync(path.join(root, 'contribution-elephant.svg'), svg);
+fs.writeFileSync(path.join(root, 'contribution-mammoth.svg'), svg);
 console.log(`Rendered ${grid.length} dates with ${targets.length} active days and ${total} contributions.`);
