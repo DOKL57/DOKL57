@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="935" height="147" viewBox="0 0 935 147" role="img" aria-labelledby="title desc">
 <title id="title">DOKL57’s GitHub contribution calendar</title>
-<desc id="desc">A woolly mammoth tosses tiles into their dates. 303 GitHub contributions on 55 days from Nov 25, 2025 through Nov 24, 2026.</desc>
+<desc id="desc">A woolly mammoth tosses tiles into their dates. 299 GitHub contributions on 55 days from Nov 26, 2025 through Nov 25, 2026.</desc>
 <style>
 :root{--empty:#e7eae6;--low:#c3d7ca;--mid:#90b6a2;--high:#629981;--max:#316c57;--mammoth:#795543;--fur:#ac8267;--tusk:#f7e5cb;--ink:#515c58;--surface:#fafbf8}
 @media(prefers-color-scheme:dark){:root{--empty:#263137;--low:#3a514c;--mid:#507969;--high:#73a78f;--max:#9acdb4;--mammoth:#b88d71;--fur:#795543;--tusk:#ffedd2;--ink:#a3b0ac;--surface:#191f24}}
@@ -10,7 +10,6 @@ text{font-family:Consolas,monospace;font-size:10px;fill:var(--ink)}
 .level-0{fill:var(--empty)}.level-1{fill:var(--low)}.level-2{fill:var(--mid)}.level-3{fill:var(--high)}.level-4{fill:var(--max)}
 </style>
 <text x="83" y="15">Dec</text><text x="147" y="15">Jan</text><text x="227" y="15">Feb</text><text x="291" y="15">Mar</text><text x="355" y="15">Apr</text><text x="419" y="15">May</text><text x="499" y="15">Jun</text><text x="563" y="15">Jul</text><text x="627" y="15">Aug</text><text x="707" y="15">Sep</text><text x="771" y="15">Oct</text><text x="851" y="15">Nov</text><text x="62" y="50" text-anchor="end" font-size="9">Mon</text><text x="62" y="82" text-anchor="end" font-size="9">Wed</text><text x="62" y="114" text-anchor="end" font-size="9">Fri</text>
-<rect x="67" y="57" width="12" height="12" rx="2" class="level-0" />
 <rect x="67" y="73" width="12" height="12" rx="2" class="level-0" />
 <rect x="67" y="89" width="12" height="12" rx="2" class="level-0" />
 <rect x="67" y="105" width="12" height="12" rx="2" class="level-0" />
@@ -375,6 +374,7 @@ text{font-family:Consolas,monospace;font-size:10px;fill:var(--ink)}
 <rect x="899" y="25" width="12" height="12" rx="2" class="level-0" />
 <rect x="899" y="41" width="12" height="12" rx="2" class="level-0" />
 <rect x="899" y="57" width="12" height="12" rx="2" class="level-0" />
+<rect x="899" y="73" width="12" height="12" rx="2" class="level-0" />
 <g class="still" display="none">
 <rect x="115" y="25" width="12" height="12" rx="2" class="level-1" data-date="2025-12-14"/>
 <rect x="115" y="41" width="12" height="12" rx="2" class="level-1" data-date="2025-12-15"/>
@@ -430,7 +430,7 @@ text{font-family:Consolas,monospace;font-size:10px;fill:var(--ink)}
 <rect x="883" y="121" width="12" height="12" rx="2" class="level-1" data-date="2026-11-21"/>
 <rect x="899" y="25" width="12" height="12" rx="2" class="level-3" data-date="2026-11-22"/>
 <rect x="899" y="41" width="12" height="12" rx="2" class="level-3" data-date="2026-11-23"/>
-<rect x="899" y="57" width="12" height="12" rx="2" class="level-2" data-date="2026-11-24"/>
+<rect x="899" y="57" width="12" height="12" rx="2" class="level-1" data-date="2026-11-24"/>
 <g transform="translate(32 86)" color="var(--mammoth)"><path d="M-16-3q-3 3-3 7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
     <path d="M-12 1h5l-1 9h-4Zm13-1h5l1 10H3Z" class="fur"/>
     <path d="M-17 1v-5c1-5 4-9 10-11 5-2 10-2 14 2 3 1 5 4 5 8v6l-4 3-1 6H2L1 4l-3 1-1-2-3 2-1-2-4 1-1 6h-4l1-7Z" fill="currentColor"/>
@@ -712,9 +712,9 @@ text{font-family:Consolas,monospace;font-size:10px;fill:var(--ink)}
   <g data-land-date="2026-11-23"><rect x="899" y="41" width="12" height="12" rx="2" class="level-3" /><animate attributeName="opacity" calcMode="discrete" values="0;1;1" keyTimes="0;0.768138;1" dur="14.600000000000001s" repeatCount="indefinite"/></g>
 <g data-flight-date="2026-11-24" opacity="0"><animate attributeName="opacity" calcMode="discrete" values="0;1;0;0" keyTimes="0;0.722603;0.780822;1" dur="14.600000000000001s" repeatCount="indefinite"/>
     <animateMotion path="M51 85 Q478 -10 905 63" keyPoints="0;0;1;1" keyTimes="0;0.722603;0.780822;1" calcMode="linear" dur="14.600000000000001s" repeatCount="indefinite"/>
-    <g><rect x="-4" y="-4" width="8" height="8" rx="2" class="level-2" /><animateTransform attributeName="transform" type="rotate" values="0;0;180;180" keyTimes="0;0.722603;0.780822;1" dur="14.600000000000001s" repeatCount="indefinite"/></g>
+    <g><rect x="-4" y="-4" width="8" height="8" rx="2" class="level-1" /><animateTransform attributeName="transform" type="rotate" values="0;0;180;180" keyTimes="0;0.722603;0.780822;1" dur="14.600000000000001s" repeatCount="indefinite"/></g>
   </g>
-  <g data-land-date="2026-11-24"><rect x="899" y="57" width="12" height="12" rx="2" class="level-2" /><animate attributeName="opacity" calcMode="discrete" values="0;1;1" keyTimes="0;0.780822;1" dur="14.600000000000001s" repeatCount="indefinite"/></g>
+  <g data-land-date="2026-11-24"><rect x="899" y="57" width="12" height="12" rx="2" class="level-1" /><animate attributeName="opacity" calcMode="discrete" values="0;1;1" keyTimes="0;0.780822;1" dur="14.600000000000001s" repeatCount="indefinite"/></g>
 <g transform="translate(32 86)" color="var(--mammoth)"><path d="M-16-3q-3 3-3 7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
     <path d="M-12 1h5l-1 9h-4Zm13-1h5l1 10H3Z" class="fur"/>
     <path d="M-17 1v-5c1-5 4-9 10-11 5-2 10-2 14 2 3 1 5 4 5 8v6l-4 3-1 6H2L1 4l-3 1-1-2-3 2-1-2-4 1-1 6h-4l1-7Z" fill="currentColor"/>
